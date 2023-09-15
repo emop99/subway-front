@@ -10,7 +10,7 @@ export default function HeaderLayout(){
             <nav>
                 <ul>
                     <li><a href="/login">로그인</a></li>
-                    <li><a href="/agreement">회원가입</a></li>
+                    <li><a href="/join">회원가입</a></li>
                 </ul>
             </nav>
         </div>
