@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;    
+}
+a{
+    text-decoration: none;
+}
+ul,li{
+    list-style: none;
+}
+.hidden{
+    position: absolute;
+    z-index: -100;
+    opacity: 0;
+    top: -5000px;
+}
+$font1 : Noto Sans KR;
+header{
+    border-top: 5px solid #239347;
+    width: 100vw;
+    padding-top: 50px;
+    margin-bottom: 50px;
+    .inner{
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+
+        h1{
+            position: relative;
+            top: -20px;
+            text-align: center;
+            a{
+                color: #000;
+                img{
+                    width: 202px;
+                }
+            }
+        }
+        nav{
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            ul{
+                display: flex;
+                li{          
+                    width: 75px;
+                    display: flex;
+                    justify-content: space-around;          
+                    
+                    &:nth-of-type(1){
+                        position: relative;
+                        &::after{
+                            position: absolute;
+                            top: 17px;
+                            right: 0;
+                            display: block;
+                            content: '';
+                            width: 5px;
+                            height: 5px;
+                            background-color: #ddd;
+                            border-radius: 5px;
+                        }        
+                    }
+                    a{
+                        color: #777;
+                        font: 12px/40px '맑은 고딕';
+                    }
+                }
+                
+            }
+        }    
+    }
+}
+
+footer{
+    width: 100vw;
+    height: 80px;
+    background-color: rgb(64, 87, 73);
+    margin-top: 100px;
+    .inner{
+        padding: 10px;
+        margin: 0 auto;
+        max-width: 1000px;
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        .footerMenu{
+            ul{
+                display: flex;
+                height: 40px;
+                align-items: center;
+                gap: 15px;
+                li{
+                    color: #bbb;
+                    font: 11px/1 '맑은 고딕';
+                   &:nth-of-type(1){
+                    padding-right: 18px;
+                    border-right: 1px solid #bbb;
+                   } 
+                }
+            }
+        }
+        .footerMenu2{
+           
+            ul{
+                height: 40px;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                li{
+                    color: #bbb;
+                    font: 11px/1 '맑은 고딕';
+                }
+            }
+        }
+    }
+}

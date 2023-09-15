@@ -1,0 +1,147 @@
+#logInPage{
+    width: 100vw;
+    background-color: #eee;
+    padding: 100px;
+    .inner{
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+        background-color: #fff;
+        box-shadow: 2px 2px 2px rgba($color: #000000, $alpha: 0.2);
+        border-radius: 10px 0 10px 0;
+        padding: 50px 20px 50px 20px;
+
+        h3{
+            font: bold 30px/1 $font1;
+        }
+        p{
+            padding: 50px 0 50px 0;
+            margin: 0 auto;
+            width: 250px;
+            font: 13px/1.2 $font1;
+        }
+
+        #logIn{
+            width: 70%;
+            margin: 0 auto;
+            .textBox{
+                margin: 0 auto;
+                border: 1px solid #ddd;
+
+                label{
+                    display: flex;
+                    height: 70px;
+                    justify-content: start;
+                    &:nth-of-type(1){
+                        border-bottom: 1px solid #ddd;
+                    }
+                    span{
+                        width: 35%;
+                        height: 70px;
+                        font: bold 18px/70px $font1;
+                        color: #555;
+                        white-space: nowrap;
+                    }
+                    input{
+                        padding-left: 10px;
+                        width: 65%;
+                        border: none;
+                        font: 14px/70px $font1;
+                    }
+                }
+            }
+            .idSave{
+                text-align: left;
+                margin-top: 20px;
+                height: 30px;
+                display: flex;
+
+                    input{
+                        display: none;
+                    }
+                    input + label{
+                        &::before{
+                            content: '';
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            border: 2px solid #bbb;
+                            border-radius: 30px;
+                        }
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                      
+                        i{
+                            display: none;
+                        }
+                        strong{
+                            margin-left: 10px;
+                            font: 14px/1 $font1;
+                            color: #444;
+                        }
+                    }
+                    input:checked + label{
+                        position: relative;
+                        &::before{
+                            content: '';
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            border: 2px solid #bbb;
+                            border-radius: 30px;
+                            
+                        }
+                        i{
+                            display: inline-block;
+                            position: absolute;
+                            top: -7px;
+                            left: 2px;
+                            font-size: 30px;
+                            color: #239347;
+                        
+                    }
+                }
+
+            }
+            #btnIn{
+                margin-top: 50px;
+                margin-bottom: 20px;
+                width: 100%;
+                border: none;
+                background-color: #239347;
+                height: 50px;
+                font: bold 16px/1 $font1;
+                color: #fff;
+                transition: 0.3s;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: #196431;
+                }
+            }
+        }
+        .logInMenu{
+            width: 70%;
+            margin: 0 auto;
+                
+            ul{
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-around;
+                li{
+                    text-align: center;
+                    width: 33%;
+                    border-right: 1px solid #ddd;
+                    a{
+                        font: 13px/1 $font1;
+                        color: #555;
+                    }
+                    &:nth-of-type(3){
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+}

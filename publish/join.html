@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보입력</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="script/header.js"></script>
+    <script src="https://kit.fontawesome.com/220fae79fc.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header> 
+        <div class="inner">
+            <h1><a href="#;"><img src="img/subwayLogo.png" alt="서브웨이 로고"></a></h1>
+            <nav>
+                <ul>
+                    <li><a href="login.html">로그인</a></li>
+                    <li><a href="agreement.html">회원가입</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="joinPage">
+        
+        <h3>회원가입</h3>
+        <div class="step">
+            <ul>
+                <li><i class="fa-solid fa-stamp"></i></li>
+                <li class="on"><i class="fa-solid fa-user"></i></li>
+                <li><i class="fa-solid fa-check"></i></li>
+            </ul>
+        </div>
+        <div class="inner">
+            <h2>STAP.2 정보입력</h2>
+
+            <form action="result.html" id="join">
+                <h3>기본 정보 (필수 입력)</h3>
+                <div class="joinText">
+                    <div class="joinId">
+                        <dl>
+                            <dt>아이디(이메일)</dt>
+                            <dd>
+                                <span>
+                                    <input type="text" placeholder="이메일 아이디 입력">
+                                </span>
+                                    @
+                                <span>
+                                    <input type="text" placeholder="이메일 도메인 입력">
+                                </span>
+                                <span>
+                                    <select name="joinIdSelect" id="joinIdSelect">
+                                        <option value="직접입력">직접입력</option>
+                                        <option value="naver.com">naver.com</option>
+                                        <option value="daum.net">daum.net</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="icloud.com">icloud.com</option>
+                                    </select>
+                                </span>
+                                <div class="idTest">
+                                    <a href="#">중복확인</a>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="joinPw">
+                        <dl>
+                            <dt>비밀번호</dt>
+                            <dd>
+                                <span>
+                                    <input type="text" placeholder="비밀번호 입력">
+                                </span>
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="joinPw2">
+                        <dl>
+                            <dt>비밀번호 확인</dt>
+                            <dd>
+                                <span>
+                                    <input type="text" placeholder="비밀번호 입력">
+                                </span>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                
+                
+                <input type="submit" id="joinNext" value="회원가입 완료">
+               
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="inner">
+            <div class="footerMenu">
+                <ul>
+                    <li>개인정보처리방침</li>
+                    <li>서비스이용약관</li>
+                </ul>
+            </div>
+            <div class="footerMenu2">
+                <ul>
+                    <li>회사명 : ㈜샐러맨더</li>
+                    <li>사업자등록번호 : 123-45-67890</li>
+                    <li> COPYRIGHT(C) 2023 ㈜샐러맨더. CO.LTD ALL RIGHT RESERVED.</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
