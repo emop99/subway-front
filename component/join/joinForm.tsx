@@ -51,6 +51,7 @@ export default function JoinForm({setStep, marketingAgree}: JoinFormProps) {
                 }
             })
             .catch((error) => {
+                alert('아이디 중복확인에 실패하였습니다.');
                 console.error(error);
             });
     };
@@ -81,7 +82,29 @@ export default function JoinForm({setStep, marketingAgree}: JoinFormProps) {
             passwordCheckRef.current && passwordCheckRef.current.focus();
             return false;
         }
-        setStep('3');
+
+        const option: RequestInit = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userId: id,
+                password: password,
+                nickName: "test",
+            }),
+        };
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/join`, option)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("RESPONSE_NOT_OK");
+                }
+                setStep('3');
+            })
+            .catch((error) => {
+                alert('회원가입에 실패하였습니다.');
+                console.error(error);
+            });
     }
 
     return <section id="joinPage">

@@ -32,12 +32,17 @@ export default function Login() {
             body: JSON.stringify({
                 userId: id,
                 password,
-                nickName: '',
             }),
         };
-        fetch('https://api.github.com/repos/vercel/swr', option)
-            .then((res) => {
-                console.log(res);
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/login`, option)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("RESPONSE_NOT_OK");
+                }
+            })
+            .catch((error) => {
+                alert('로그인에 실패하였습니다.');
+                console.error(error);
             });
     }
 
