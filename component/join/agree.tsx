@@ -3,11 +3,16 @@
 import {HomePageAgreeText, MarketingAgreeText, PersonalAgreeText} from "@/component/join/agreeText";
 import React, {useRef, useState} from "react";
 
-export default function Agree() {
+type AgreeProps = {
+    setStep: (step: string) => void;
+    marketingAgree: boolean;
+    setMarketingAgree: (value: boolean) => void;
+}
+
+export default function Agree({setStep, marketingAgree, setMarketingAgree}: AgreeProps) {
     const [allChecked, setAllChecked] = useState(false);
     const [homePageAgree, setHomePageAgree] = useState(false);
     const [personalAgree, setPersonalAgree] = useState(false);
-    const [marketingAgree, setMarketingAgree] = useState(false);
     const homePageAgreeRef = useRef<HTMLInputElement>(null);
     const personalAgreeRef = useRef<HTMLInputElement>(null);
 
@@ -48,7 +53,7 @@ export default function Agree() {
             personalAgreeRef.current && personalAgreeRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return false;
         }
-        location.href = '/join/2??marketingAgree=' + marketingAgree;
+        setStep('2');
     }
 
     return <section id="agreementPage">
