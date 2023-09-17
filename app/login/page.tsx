@@ -26,6 +26,7 @@ export default function Login() {
 
         const option: RequestInit = {
             method: 'POST',
+            cache: 'no-cache',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -36,11 +37,23 @@ export default function Login() {
         };
         await fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/login`, option)
             .then((response) => {
-                if (!response.ok) {
+                if (response.status === 400) {
+                    alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+                    throw new Error("USER_NOT_FOUND");
+                } else if (!response.ok) {
                     throw new Error("RESPONSE_NOT_OK");
                 }
+                return response.json();
+            })
+            .then((data) => {
+                document.cookie = `accessToken=${data.accessToken}; max-age=86400; path=/`;
+                document.cookie = `refreshToken=${data.refreshToken} ; max-age=86400; path=/`;
+                location.href = '/';
             })
             .catch((error) => {
+                if (error.message === 'USER_NOT_FOUND') {
+                    return;
+                }
                 alert('로그인에 실패하였습니다.');
                 console.error(error);
             });
