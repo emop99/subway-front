@@ -1,10 +1,13 @@
 'use client'
 
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
+import { useCookies } from 'react-cookie';
 
 export default function Login() {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
+    const [accessToken, setAccessToken] = useCookies(['accessToken']);
+    const [refreshToken, setRefreshToken] = useCookies(['refreshToken']);
 
     const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
         setId(e.target.value);
@@ -26,6 +29,7 @@ export default function Login() {
 
         const option: RequestInit = {
             method: 'POST',
+            credentials: 'include',
             cache: 'no-cache',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,8 +50,8 @@ export default function Login() {
                 return response.json();
             })
             .then((data) => {
-                document.cookie = `accessToken=${data.accessToken}; max-age=86400; path=/`;
-                document.cookie = `refreshToken=${data.refreshToken} ; max-age=86400; path=/`;
+                setAccessToken('accessToken', data.accessToken, { path: '/', maxAge: 86400 });
+                setRefreshToken('refreshToken', data.refreshToken, { path: '/', maxAge: 86400 });
                 location.href = '/';
             })
             .catch((error) => {
@@ -58,6 +62,12 @@ export default function Login() {
                 console.error(error);
             });
     }
+
+    useEffect(() => {
+        if (accessToken.accessToken) {
+            location.href = '/';
+        }
+    }, [accessToken]);
 
     return <section id="logInPage">
         <h2 className="hidden">로그인 페이지</h2>

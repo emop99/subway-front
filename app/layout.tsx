@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import React from "react";
-import HeaderLayout from "../component/headerLayout";
-import FooterLayout from "../component/footerLayout";
 import "../styles/style.scss";
+import Layout from "@/component/layout";
 
 export const metadata: Metadata = {
   title: '서브웨이 레시피',
@@ -13,17 +12,13 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({children}: { children: React.ReactNode }) {
   return (
     <html lang="ko">
       <body>
-        <HeaderLayout/>
-        {children}
-        <FooterLayout/>
+        <Layout>
+          {children}
+        </Layout>
       </body>
     </html>
   )
