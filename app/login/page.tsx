@@ -1,13 +1,17 @@
-'use client'
+'use client';
 
 import React, {FormEvent, useEffect, useState} from "react";
 import { useCookies } from 'react-cookie';
 
+type LoginApiResponse = {
+    accessToken: string;
+    refreshToken: string;
+};
+
 export default function Login() {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
-    const [accessToken, setAccessToken] = useCookies(['accessToken']);
-    const [refreshToken, setRefreshToken] = useCookies(['refreshToken']);
+    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken']);
 
     const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
         setId(e.target.value);
@@ -49,10 +53,9 @@ export default function Login() {
                 }
                 return response.json();
             })
-            .then((data) => {
-                setAccessToken('accessToken', data.accessToken, { path: '/', maxAge: 86400 });
-                setRefreshToken('refreshToken', data.refreshToken, { path: '/', maxAge: 86400 });
-                location.href = '/';
+            .then((data: LoginApiResponse) => {
+                setCookies('accessToken', data.accessToken, { path: '/', maxAge: 86400 });
+                setCookies('refreshToken', data.refreshToken, { path: '/', maxAge: 86400 });
             })
             .catch((error) => {
                 if (error.message === 'USER_NOT_FOUND') {
@@ -64,10 +67,10 @@ export default function Login() {
     }
 
     useEffect(() => {
-        if (accessToken.accessToken) {
+        if (cookies.accessToken) {
             location.href = '/';
         }
-    }, [accessToken]);
+    }, [cookies.accessToken]);
 
     return <section id="logInPage">
         <h2 className="hidden">로그인 페이지</h2>
@@ -97,8 +100,8 @@ export default function Login() {
             </form>
             <div className="logInMenu">
                 <ul>
-                    <li><a href="#;">아이디 찾기</a></li>
-                    <li><a href="#;">비밀번호 찾기</a></li>
+                    <li><a href="#">아이디 찾기</a></li>
+                    <li><a href="#">비밀번호 찾기</a></li>
                     <li><a href="/join">회원가입</a></li>
                 </ul>
             </div>

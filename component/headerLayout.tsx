@@ -8,12 +8,13 @@ import {useEffect, useState} from "react";
 export default function HeaderLayout(){
     const [isLoginLoading, setIsLoginLoading] = useState(false);
     const [isLogin, setIsLogin] = useState(false);
-    const [accessToken, setAccessToken, removeAccessToken] = useCookies(['accessToken']);
-    const [refreshToken, setRefreshToken, removeRefreshToken] = useCookies(['refreshToken']);
+    const [cookies, setCookies, removeCookies] = useCookies(['accessToken', 'refreshToken']);
 
     const authCheck = async () => {
-        if (!accessToken.accessToken) {
+        if (!cookies.accessToken) {
             setIsLoginLoading(true);
+            return false;
+        } else if (location.pathname === '/login') {
             return false;
         }
 
@@ -23,19 +24,51 @@ export default function HeaderLayout(){
             cache: 'no-cache',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + accessToken.accessToken,
+                'Authorization': 'Bearer ' + cookies.accessToken,
             },
         }
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/my-info`, option)
             .then((response) => {
-                if (!response.ok) {
+                if (!response.ok && response.status !== 403) {
                     throw new Error("RESPONSE_NOT_OK");
                 }
                 return response.json();
             })
             .then((data) => {
-                setIsLogin(true);
-                setIsLoginLoading(true);
+                if (data.message && data.message.includes('JWT expired')) {
+                    const option: RequestInit = {
+                        method: 'POST',
+                        credentials: 'include',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            'refreshToken': cookies.refreshToken,
+                        }),
+                    };
+                    fetch(`${process.env.NEXT_PUBLIC_API_URL}/member/refresh`, option)
+                        .then((response) => {
+                            if (!response.ok) {
+                                removeCookies('accessToken');
+                                removeCookies('refreshToken');
+                                setIsLoginLoading(true);
+                                setIsLogin(false);
+                                throw new Error("LOGIN_EXPIRED");
+                            }
+                            return response.json();
+                        })
+                        .then((data) => {
+                            setCookies('accessToken', data.accessToken, { path: '/', maxAge: 86400 });
+                            setCookies('refreshToken', data.refreshToken, { path: '/', maxAge: 86400 });
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                } else {
+                    setIsLogin(true);
+                    setIsLoginLoading(true);
+                }
             })
             .catch((error) => {
                 setIsLoginLoading(true);
@@ -46,11 +79,11 @@ export default function HeaderLayout(){
 
     useEffect(() => {
         authCheck().then(r => {});
-    }, [accessToken.accessToken]);
+    }, [cookies.accessToken]);
 
     const logout = () => {
-        removeAccessToken('accessToken');
-        removeRefreshToken('refreshToken');
+        removeCookies('accessToken');
+        removeCookies('refreshToken');
         setIsLogin(false);
     }
 
