@@ -5,6 +5,9 @@ const nextConfig = {
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
     },
+    images: {
+        domains: ['sub-recipe-bucket.s3.ap-northeast-2.amazonaws.com'],
+    },
 }
 
 module.exports = nextConfig

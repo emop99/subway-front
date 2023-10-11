@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import React from "react";
 import "../styles/style.scss";
 import Layout from "@/component/layout";
+import "bootstrap/scss/bootstrap.scss";
 
 export const metadata: Metadata = {
   title: '서브웨이 레시피',
