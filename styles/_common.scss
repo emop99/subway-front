@@ -16,6 +16,8 @@ ul,li{
     top: -5000px;
 }
 $font1 : Noto Sans KR;
+$font2 : Black Han Sans;
+
 header{
     border-top: 5px solid #239347;
     width: 100vw;
@@ -75,13 +77,13 @@ header{
 
 footer{
     width: 100vw;
-    height: 80px;
+    height: 100px;
     background-color: rgb(64, 87, 73);
-    .inner{
-        padding: 10px;
+    >.inner{
+        padding: 20px;
         margin: 0 auto;
         max-width: 1000px;
-        height: 80px;
+        height: 100px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -89,7 +91,6 @@ footer{
         .footerMenu{
             ul{
                 display: flex;
-                height: 40px;
                 align-items: center;
                 gap: 15px;
                 li{
@@ -105,7 +106,6 @@ footer{
         .footerMenu2{
            
             ul{
-                height: 40px;
                 display: flex;
                 align-items: center;
                 gap: 15px;
