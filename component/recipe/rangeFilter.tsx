@@ -25,12 +25,16 @@ export default function RangeFilter({filterName, minValue, setMinValue, maxValue
         const maxRange = multiRangeSliderEle.querySelector('.max_range') as HTMLInputElement;
         const range = multiRangeSliderEle.querySelector('.range') as HTMLElement;
         const [min, max] = [parseInt(minRange.min), parseInt(minRange.max)];
-        const percent = ((Number(minRange.value) - min) / (max - min)) * 100;
+        const minPercent = ((Number(minRange.value) - min) / (max - min)) * 100;
+        const maxPercent = ((Number(maxRange.value) - min) / (max - min)) * 100;
         const minRangeSelector = multiRangeSliderEle.querySelector('.thumb.left') as HTMLElement;
 
-        minRangeSelector.style.left = percent + "%";
-        range.style.left = percent + "%";
-        return Math.min(parseInt(minRange.value), parseInt(maxRange.value) - 1);
+        minRangeSelector.style.left = (minPercent >= maxPercent ? maxPercent : minPercent) + "%";
+        range.style.left = (minPercent >= maxPercent ? maxPercent : minPercent) + "%";
+
+        return filterName === '가격'
+            ? Math.floor(Math.min(parseInt(minRange.value), parseInt(maxRange.value) - 1)/100) * 100
+            : Math.min(parseInt(minRange.value), parseInt(maxRange.value) - 1);
     };
     const maxRangeCalc = (event: React.ChangeEvent<HTMLInputElement>) => {
         const multiRangeSliderEle = event.target.closest('.multi-range-slider') as HTMLElement;
@@ -38,12 +42,15 @@ export default function RangeFilter({filterName, minValue, setMinValue, maxValue
         const maxRange = multiRangeSliderEle.querySelector('.max_range') as HTMLInputElement;
         const range = multiRangeSliderEle.querySelector('.range') as HTMLElement;
         const [min, max] = [parseInt(maxRange.min), parseInt(maxRange.max)];
-        const percent = ((Number(maxRange.value) - min) / (max - min)) * 100;
+        const minPercent = ((Number(minRange.value) - min) / (max - min)) * 100;
+        const maxPercent = ((Number(maxRange.value) - min) / (max - min)) * 100;
         const maxRangeSelector = multiRangeSliderEle.querySelector('.thumb.right') as HTMLElement;
 
-        maxRangeSelector.style.right = 100 - percent + "%";
-        range.style.right = 100 - percent + "%";
-        return Math.max(parseInt(maxRange.value), parseInt(minRange.value) + 1);
+        maxRangeSelector.style.right = 100 - (minPercent < maxPercent ? maxPercent : minPercent) + "%";
+        range.style.right = 100 - (minPercent < maxPercent ? maxPercent : minPercent) + "%";
+        return filterName === '가격'
+            ? Math.floor(Math.max(parseInt(maxRange.value), parseInt(minRange.value) + 1) / 100) * 100
+            : Math.max(parseInt(maxRange.value), parseInt(minRange.value) + 1);
     };
 
     return (
