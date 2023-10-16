@@ -33,10 +33,10 @@ export default function Home() {
     const [maxPrice, setMaxPrice] = useState(15000);
     const [minKcal, setMinKcal] = useState(500);
     const [maxKcal, setMaxKcal] = useState(1500);
-    const [minProtein, setMinProtein] = useState(0);
-    const [maxProtein, setMaxProtein] = useState(100);
-    const [minFat, setMinFat] = useState(0);
-    const [maxFat, setMaxFat] = useState(100);
+    const [minProtein, setMinProtein] = useState(50);
+    const [maxProtein, setMaxProtein] = useState(150);
+    const [minFat, setMinFat] = useState(50);
+    const [maxFat, setMaxFat] = useState(150);
 
     const [orderBySearchType, setOrderBySearchType] = useState('');
     const [orderByType, setOrderByType] = useState('asc');
@@ -75,13 +75,13 @@ export default function Home() {
                         </thead>
                     </table>
                     <RangeFilter filterName="가격" minValue={minPrice} setMinValue={setMinPrice}
-                                 maxValue={maxPrice} setMaxValue={setMaxPrice}/>
+                                 maxValue={maxPrice} setMaxValue={setMaxPrice} maximumValue={20000}/>
                     <RangeFilter filterName="칼로리" minValue={minKcal} setMinValue={setMinKcal}
-                                 maxValue={maxKcal} setMaxValue={setMaxKcal}/>
+                                 maxValue={maxKcal} setMaxValue={setMaxKcal} maximumValue={2000}/>
                     <RangeFilter filterName="단백질" minValue={minProtein} setMinValue={setMinProtein}
-                                 maxValue={maxProtein} setMaxValue={setMaxProtein}/>
+                                 maxValue={maxProtein} setMaxValue={setMaxProtein} maximumValue={200}/>
                     <RangeFilter filterName="지방" minValue={minFat} setMinValue={setMinFat}
-                                 maxValue={maxFat} setMaxValue={setMaxFat}/>
+                                 maxValue={maxFat} setMaxValue={setMaxFat} maximumValue={200}/>
                     <OrderBy orderBySearchType={orderBySearchType} orderByType={orderByType}
                              setOrderBySearchType={setOrderBySearchType} setOrderByType={setOrderByType}/>
                     <button type={"button"} onClick={onSearch}>검색</button>

@@ -8,9 +8,10 @@ type RangeFilterProps = {
     setMinValue: (value: number) => void;
     maxValue: number;
     setMaxValue: (value: number) => void;
+    maximumValue: number;
 };
 
-export default function RangeFilter({filterName, minValue, setMinValue, maxValue, setMaxValue}: RangeFilterProps) {
+export default function RangeFilter({filterName, minValue, setMinValue, maxValue, setMaxValue, maximumValue}: RangeFilterProps) {
     const onMinValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMinValue(minRangeCalc(event));
     };
@@ -49,18 +50,20 @@ export default function RangeFilter({filterName, minValue, setMinValue, maxValue
         <>
             <div className="slideBox">
                 <div className="middle">
-                    <div className="title">
-                        <h4>{filterName}</h4>
-                    </div>
+                    <h2>{filterName}</h2>
                     <div className="multi-range-slider">
-                        <input type="range" className="min_range" min="0" max="20000" value={minValue} onChange={onMinValueChange}/>
-                        <input type="range" className="max_range" min="0" max="20000" value={maxValue} onChange={onMaxValueChange}/>
+                        <input type="range" className="min_range" min="0" max={maximumValue} value={minValue} onChange={onMinValueChange}/>
+                        <input type="range" className="max_range" min="0" max={maximumValue} value={maxValue} onChange={onMaxValueChange}/>
                         <div className="slider">
                             <div className="track"></div>
                             <div className="range"></div>
                             <div className="thumb left"></div>
                             <div className="thumb right"></div>
                         </div>
+                    </div>
+                    <div className="valueBox">
+                        <p>최솟값 : <span className="minValue">{minValue}</span></p>
+                        <p>최댓값 : <span className="maxValue">{maxValue}</span></p>
                     </div>
                 </div>
             </div>
